@@ -16,7 +16,7 @@ let commands = [{
 
 bot.on('message', message => {
     commands.forEach(command => {
-        if (command.trigger) {
+        if (command.trigger(message)) {
             command.action(message);
         }
     });
