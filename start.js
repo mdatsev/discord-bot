@@ -1,9 +1,8 @@
 const Discord = require('discord.js');
-const colorsys = require('colorsys');
 
 const bot = new Discord.Client();
 
-const token = 'MjkyNjE1NTI2Njc5NTc2NTc2.DG2LvA._PJc8yQwZ6wIajbFQRnU3-ls0C4';
+const token = require("./login").token;
 
 bot.on('ready', () => {
     console.log('I am ready!');
