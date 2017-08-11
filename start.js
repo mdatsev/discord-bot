@@ -16,8 +16,12 @@ let commands = [{
         trigger: msg => msg.content.indexOf('avatar') === 0,
         action: msg => {
             let name = parameterize(msg.content).join(' ');
-            let user = msg.mentions.members.last() ? msg.mentions.members.last().user : bot.users.find("username", name) || msg.guild.members.find(val => val.nickname == name).user;
-            msg.channel.send(user.avatarURL);
+            let user = msg.mentions.members.last() || bot.users.find("username", name) || msg.guild.members.find(val => val.nickname == name);
+            if (user) {
+                msg.channel.send(user.avatarURL || user.user.avatarURL);
+            } else {
+                msg.channel.send(`can't find ${name}`)
+            }
         }
     }
 ];
@@ -53,7 +57,6 @@ bot.on('guildMemberAdd', member => {
         `${member} hopped into the server. Kangaroo!!`,
         `${member} just showed up. Hold my beer.`
     ]
-    // Send the message to the guilds default channel (usually #general), mentioning the member
     var response = messages[Math.floor(Math.random() * messages.length)];
     member.guild.channels.get('345106817489043456').sendMessage(response)
 });
